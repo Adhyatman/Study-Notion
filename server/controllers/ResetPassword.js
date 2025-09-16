@@ -57,7 +57,7 @@ exports.resetPassword = async (req, res) => {
             });
         }
         //get user details from db using token
-        const userDetails = await user.findOne({ resetPasswordToken });
+        const userDetails = await User.findOne({ resetPasswordToken });
         //if no entry - invalid token
         if (!userDetails) {
             return res.json({
@@ -66,7 +66,7 @@ exports.resetPassword = async (req, res) => {
             });
         }
         //token time check
-        if (userDetails.resetPasswordExpires > Date.now()) {
+        if (userDetails.resetPasswordExpires < Date.now()) {
             return res.json({
                 success: false,
                 message: "token expired",
