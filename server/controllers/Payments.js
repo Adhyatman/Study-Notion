@@ -113,7 +113,10 @@ exports.verifySignature = async (req, res) => {
                 { _id: userId },
                 {
                     $push: {
-                        course: courseId,
+                        courses: courseId,
+                    },
+                    $inc: {
+                        studentCount: 1,
                     },
                 },
                 { new: true }

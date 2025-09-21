@@ -67,7 +67,7 @@ exports.createCourse = async (req, res) => {
             categoryDetails._id,
             {
                 $push: {
-                    course: newCourse._id,
+                    courses: newCourse._id,
                 },
             },
             { new: true }
@@ -115,19 +115,18 @@ exports.getCourseDetails = async (req, res) => {
     try {
         const { courseId } = req.body;
         const courseDetails = await Course.findById(courseId)
-            .populate("instructor")
-            .populate("courseContent")
+            .populate({ path: "instructor", populate: { path: "additionalDetails" } })
+            .populate({ path: "courseContent", populate: { path: "subSection" } })
             .populate("ratingAndReviews")
             .populate("category")
-            .populate("studentsEnrolled")
             .exec();
+        //.populate("studentsEnrolled")
         if (!courseDetails) {
             return res.status(400).json({
                 success: false,
                 message: "could not find course with given course ID",
             });
         }
-        console.log(courseDetails);
         return res.status(200).json({
             success: true,
             message: "Fetched all the details with given courseId",
@@ -138,6 +137,30 @@ exports.getCourseDetails = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "could not get course details",
+            error: err.message,
+        });
+    }
+};
+
+exports.getTopCourses = async (req, res) => {
+    try {
+        const topCourses = await Course.find({})
+            .sort({ studentCount: -1 })
+            .limit(10)
+            .select("title description thumbnail studentsEnrolled ratingAndReviews")
+            .populate("instructor", "firstName lastName")
+            .populate("category", "name")
+            .exec();
+        return res.status(200).json({
+            success: true,
+            message: "fetched data of top courses on the platform",
+            topCourses,
+        });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: "could not find top courses",
             error: err.message,
         });
     }

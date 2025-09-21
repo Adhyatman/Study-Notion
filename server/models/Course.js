@@ -49,7 +49,19 @@ const courseSchema = new mongoose.Schema({
         ref: "Category",
     },
     tags: {
+        type: [String],
+        required: true,
+    },
+    instructions: {
+        type: [String],
+    },
+    status: {
         type: String,
+        enum: ["Draft", "Published"],
+    },
+    studentCount: {
+        type: Number,
+        default: 0,
     },
     studentsEnrolled: [
         {
