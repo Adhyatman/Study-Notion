@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const mailSender = require("../utils/mailSender");
+const Profile = require("../models/Profile");
 
 //sendOTP
 exports.sendOTP = async (req, res) => {
@@ -20,7 +21,7 @@ exports.sendOTP = async (req, res) => {
                 message: "User already registered",
             });
         }
-        var otp = otpGenerator.genearte(6, {
+        var otp = otpGenerator.generate(6, {
             upperCaseAlphabets: false,
             lowerCaseAlphabets: false,
             specialChars: false,
@@ -62,10 +63,10 @@ exports.sendOTP = async (req, res) => {
 exports.signup = async (req, res) => {
     try {
         //fetch data from req body
-        const { firstName, lastName, email, password, confirmPassword, accountType, contactNumber, otp } = req.body;
+        const { firstName, lastName, email, password, confirmPassword, accountType, otp } = req.body;
 
         //validate data
-        if (!firstName || !lastName || !email || !password || !confirmPassword || !contactNumber || !otp) {
+        if (!firstName || !lastName || !email || !password || !confirmPassword || !otp) {
             return res.status(403).json({
                 success: false,
                 message: "All fields are required",
@@ -100,7 +101,7 @@ exports.signup = async (req, res) => {
                 success: false,
                 message: "OTP Not found",
             });
-        } else if (otp !== recentOTP) {
+        } else if (otp !== recentOTP[0].otp) {
             //INVALID OTP
             return res.status(400).json({
                 success: false,
@@ -112,7 +113,7 @@ exports.signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         //entry create in DB
-        const profileDetails = Profile.create({
+        const profileDetails = await Profile.create({
             gender: null,
             dateOfBirth: null,
             about: null,
@@ -132,6 +133,7 @@ exports.signup = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "user successfully created",
+            user,
         });
     } catch (e) {
         console.log(e);
@@ -155,13 +157,15 @@ exports.login = async (req, res) => {
             });
         }
         //user check exist or not
-        const user = await User.findOne({ email }.populate("additionalDetails"));
+
+        const user = await User.findOne({ email }).populate("additionalDetails");
         if (!user) {
             return res.status(401).json({
                 success: false,
                 message: "user is not registered, please sign up first",
             });
         }
+        console.log("1223242333");
         //generate JWT after checking password
         if (await bcrypt.compare(password, user.password)) {
             const payload = {

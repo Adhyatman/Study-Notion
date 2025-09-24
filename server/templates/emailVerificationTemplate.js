@@ -1,4 +1,4 @@
-exports.otpTemplate = (otp) => {
+const otpTemplate = (otp) => {
     return `<!DOCTYPE html>
     <html>
       <head>
@@ -45,7 +45,7 @@ exports.otpTemplate = (otp) => {
       </head>
       <body>
         <div class="container">
-          <a href=""><img class="logo" src="" alt="Studynotion logo"></a>
+          <a href=""><img class="logo" src="../images/logo.png" alt="Studynotion logo"></a>
           <div class="message">OTP Verification Email</div>
           <div class="body">
             <p>Dear User,</p>
@@ -62,3 +62,4 @@ exports.otpTemplate = (otp) => {
     </html>
     `;
 };
+module.exports = otpTemplate;
