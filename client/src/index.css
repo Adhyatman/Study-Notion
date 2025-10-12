@@ -4,6 +4,11 @@
 /* @tailwind utilities;
 @import "tailwindcss/preflight"; */
 /* @plugin "tailwind-scrollbar"; */
+.homepage_bg {
+    background-image: url("./src/assets/Images/bghome.svg");
+    @apply h-[325px];
+}
+
 @theme {
     /*---------------------------font-family------------------------------*/
     --font-inter: Inter, sans-serif;

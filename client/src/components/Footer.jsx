@@ -13,7 +13,7 @@ const Footer = () => {
     const languagesSection = FooterLink2.find((item) => item.title === "Languages");
     const careerBuildingSection = FooterLink2.find((item) => item.title === "Career building");
     return (
-        <div className="w-[100%] flex flex-col bg-richblack-800 p-3 items-center text-richblack-600 font-inter">
+        <div className="w-[100%] flex flex-col bg-richblack-800 p-3 items-center text-richblack-600 font-inter mt-16">
             {/* part 1 */}
             <div className="w-[100%] flex p-10 ">
                 <div className="w-[50%] flex justify-evenly">

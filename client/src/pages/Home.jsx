@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import HighlightText from "../components/core/HomePage/HighlightText";
@@ -6,10 +6,16 @@ import CTAButton from "../components/core/HomePage/Button";
 import Banner from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
 import Footer from "../components/Footer";
+import TimelineSection from "../components/core/HomePage/TimelineSection";
+import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
+import instructor from "../assets/Images/Instructor.png";
+import ExploreMore from "../components/core/HomePage/ExploreMore";
+
+const sections = ["New to Coding", "Most Popular", "Skills Paths", "Career Paths"];
 
 const Home = () => {
     return (
-        <div className="w-[100%]">
+        <div className="w-[100%] flex flex-col items-center bg-richblack-900">
             {/*Section 1*/}
             <div className="relative mx-auto flex flex-col w-11/12 items-center text-white justify-between">
                 <Link to={"/signup"}>
@@ -98,9 +104,128 @@ const Home = () => {
                     />
                 </div>
             </div>
-            {/*Section 2*/}
+
+            {/*Section 2 */}
+            <div className="flex flex-col items-center justify-center gap-7 w-11/12 mb-36">
+                <div className="flex flex-col items-center">
+                    <div className="text-center font-semibold text-4xl mt-7 text-white">
+                        Unlock the
+                        <HighlightText text={"Power of Code"} />
+                    </div>
+                    <div className="mt-2 w-[90%] font-bold text-center text-xl text-richblack-300">
+                        Learn to build anything you can imagine
+                    </div>
+                </div>
+                {/* <div className="flex flex-row justify-between px-1 items-center text-richblack-300  rounded-full py-1 shadow-[0_1px_0_0_#ffffff] bg-richblack-800 font-semibold gap-9 ">
+                    <div className="rounded-full bg-richblack-900 py-2 px-7 text-white font-bold">Free</div>
+                    <div className="flex gap-9">
+                        {sections.map((element, index) => {
+                            return (
+                                <div
+                                    className="rounded-full py-2 px-5 hover:bg-richblack-900 transition-all duration-200 hover:text-white"
+                                    key={index}
+                                >
+                                    {element}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+                <div className="w-[100%] text-white mt-7  relative">
+                    <div className="w-full flex flex-row absolute justify-between gap-20">
+                        <LessonCards
+                            isActive={selected === 1}
+                            title={"Learn HTML"}
+                            description={
+                                "This course covers the basic concepts of HTML including creating and structuring web pages, adding text, links, images, and more."
+                            }
+                            lessonCount={6}
+                            courseLevel={"Beginner"}
+                            onClick={() => setSelected(1)}
+                        />
+                        <LessonCards
+                            isActive={selected === 2}
+                            title={"Learn CSS"}
+                            description={
+                                "This course explores advanced topics in HTML5 and CSS3, including animations, transitions, and layout techniques"
+                            }
+                            lessonCount={6}
+                            courseLevel={"Beginner"}
+                            onClick={() => setSelected(2)}
+                        />
+                        <LessonCards
+                            isActive={selected === 3}
+                            title={"Responsive Web Design"}
+                            description={
+                                "This course teaches responsive web design techniques, allowing web pages to adapt to different devices and screen sizes"
+                            }
+                            lessonCount={6}
+                            courseLevel={"Beginner"}
+                            onClick={() => setSelected(3)}
+                        />
+                    </div>
+                </div> */}
+                <ExploreMore />
+            </div>
+
             {/*Section 3*/}
+            <div className="bg-pure-greys-5 text-richblack-700 justify-center items-center pb-3">
+                <div className="homepage_bg">
+                    <div className="w-11/12  flex items-center justify-center gap-5 mx-auto">
+                        <div className="flex flex-row text-white gap-7 mt-[250px]">
+                            <CTAButton active={true} linkto={"/signup"}>
+                                <div className="flex items-center gap-3">
+                                    Explore Full Catalog <FaArrowRight />
+                                </div>
+                            </CTAButton>
+                            <CTAButton active={false} linkto={"/login"}>
+                                <div className="flex items-center gap-3">Learn more</div>
+                            </CTAButton>
+                        </div>
+                    </div>
+                </div>
+                <div className="mx-auto w-11/12 flex flex-col items-center justify-center gap-11 mt-[95px]">
+                    <div className="flex flex-row gap-14 ">
+                        <div className="text-4xl font-semibold w-[50%]">
+                            Get the Skills you need for a <HighlightText text={"Job that is in demand"} />
+                        </div>
+                        <div className="flex flex-col font-inter w-[45%] items-start text-lg gap-8">
+                            The modern StudyNotion is the dictates its own terms. Today, to be a competitive specialist requires more than
+                            professional skills.
+                            <CTAButton active={true} linkto={"/signup"}>
+                                <div className="flex items-center gap-3">Learn more</div>
+                            </CTAButton>
+                        </div>
+                    </div>
+                </div>
+                <TimelineSection />
+                <LearningLanguageSection />
+            </div>
+
             {/*Section 4*/}
+            <div className="flex flex-row justify-center items-center gap-x-20 mt-16 w-[90%]">
+                <div className="w-[40%]">
+                    <img className="shadow-[-14px_-14px_0_0_#ffffff]" src={instructor} />
+                </div>
+                <div className="w-[50%] gap-y-7 flex flex-col items-start">
+                    <div className="text-center font-semibold text-4xl mt-7 text-white">
+                        Become An
+                        <HighlightText text={"Instructor"} />
+                    </div>
+                    <div className="mt-2 w-[90%] font-inter text-start text-1xl text-richblack-300">
+                        Instructors from around the world teach millions of students on StudyNotion. We provide the tools and skills to
+                        teach what you love.
+                    </div>
+                    <div className="w-[40%]">
+                        <CTAButton active={true} linkto={"/signup"}>
+                            <div className="flex items-center gap-3">
+                                Start Teaching Today <FaArrowRight />
+                            </div>
+                        </CTAButton>
+                    </div>
+                </div>
+            </div>
+
             {/*Footer*/}
             <Footer />
         </div>
