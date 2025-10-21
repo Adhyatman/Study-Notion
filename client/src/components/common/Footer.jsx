@@ -1,6 +1,6 @@
 import React from "react";
-import { FooterLink2 } from "../data/footer-links";
-import logo from "../assets/Logo/Logo-Full-Light.png";
+import { FooterLink2 } from "../../data/footer-links";
+import logo from "../../assets/Logo/Logo-Full-Light.png";
 import { FaFacebook, FaGoogle, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {

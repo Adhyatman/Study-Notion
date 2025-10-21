@@ -5,13 +5,11 @@ import HighlightText from "../components/core/HomePage/HighlightText";
 import CTAButton from "../components/core/HomePage/Button";
 import Banner from "../assets/Images/banner.mp4";
 import CodeBlocks from "../components/core/HomePage/CodeBlocks";
-import Footer from "../components/Footer";
+import Footer from "../components/common/Footer";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection";
 import instructor from "../assets/Images/Instructor.png";
 import ExploreMore from "../components/core/HomePage/ExploreMore";
-
-const sections = ["New to Coding", "Most Popular", "Skills Paths", "Career Paths"];
 
 const Home = () => {
     return (
@@ -20,7 +18,7 @@ const Home = () => {
             <div className="relative mx-auto flex flex-col w-11/12 items-center text-white justify-between">
                 <Link to={"/signup"}>
                     <div className="group mt-16 p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200 transition-all duration-200 hover:scale-95 w-fit shadow-[0_1px_0_0_#ffffff] hover:shadow-none">
-                        <div className="flex flex-row items-center gap-2 rounded-full px-10 py-[5px] transition-all duration-200 group-hover:bg-richblack-900">
+                        <div className="flex flex-row items-center gap-2 rounded-full px-10 py-[5px] transition-all duration-200 group-hover:bg-richblack-900 ">
                             <p>Become an Instructor</p>
                             <FaArrowRight />
                         </div>
@@ -116,55 +114,6 @@ const Home = () => {
                         Learn to build anything you can imagine
                     </div>
                 </div>
-                {/* <div className="flex flex-row justify-between px-1 items-center text-richblack-300  rounded-full py-1 shadow-[0_1px_0_0_#ffffff] bg-richblack-800 font-semibold gap-9 ">
-                    <div className="rounded-full bg-richblack-900 py-2 px-7 text-white font-bold">Free</div>
-                    <div className="flex gap-9">
-                        {sections.map((element, index) => {
-                            return (
-                                <div
-                                    className="rounded-full py-2 px-5 hover:bg-richblack-900 transition-all duration-200 hover:text-white"
-                                    key={index}
-                                >
-                                    {element}
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-                <div className="w-[100%] text-white mt-7  relative">
-                    <div className="w-full flex flex-row absolute justify-between gap-20">
-                        <LessonCards
-                            isActive={selected === 1}
-                            title={"Learn HTML"}
-                            description={
-                                "This course covers the basic concepts of HTML including creating and structuring web pages, adding text, links, images, and more."
-                            }
-                            lessonCount={6}
-                            courseLevel={"Beginner"}
-                            onClick={() => setSelected(1)}
-                        />
-                        <LessonCards
-                            isActive={selected === 2}
-                            title={"Learn CSS"}
-                            description={
-                                "This course explores advanced topics in HTML5 and CSS3, including animations, transitions, and layout techniques"
-                            }
-                            lessonCount={6}
-                            courseLevel={"Beginner"}
-                            onClick={() => setSelected(2)}
-                        />
-                        <LessonCards
-                            isActive={selected === 3}
-                            title={"Responsive Web Design"}
-                            description={
-                                "This course teaches responsive web design techniques, allowing web pages to adapt to different devices and screen sizes"
-                            }
-                            lessonCount={6}
-                            courseLevel={"Beginner"}
-                            onClick={() => setSelected(3)}
-                        />
-                    </div>
-                </div> */}
                 <ExploreMore />
             </div>
 

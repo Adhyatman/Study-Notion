@@ -3,11 +3,22 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
+import rootReducer from "./Reducer";
+import { configureStore } from "@reduxjs/toolkit";
+
+const store = configureStore({
+    reducer: rootReducer,
+});
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Toaster />
+                <App />
+            </BrowserRouter>
+        </Provider>
     </StrictMode>
 );
