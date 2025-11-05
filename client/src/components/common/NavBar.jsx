@@ -3,7 +3,7 @@ import logo from "../../assets/Logo/Logo-Full-Light.png";
 import { Link, matchPath } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ProfileDropDown from "../core/SignupAndLogin/ProfileDropDown";
+import ProfileDropDown from "../core/Auth/ProfileDropDown";
 import { AiOutlineShoppingCart, AiOutlineMenu } from "react-icons/ai";
 import { apiConnector } from "../../services/apiConnector";
 import { categories } from "../../services/apis";
@@ -32,9 +32,9 @@ const Navbar = () => {
         fetchSubLinks();
     }, []);
 
-    // useEffect(() => {
-    //     console.log("result: ", subLinks[0]?.name);
-    // }, [subLinks]);
+    useEffect(() => {
+        console.log("result: ", subLinks[0]?.name);
+    }, [subLinks]);
 
     {
         /* these two lines are to be removed */
@@ -57,7 +57,7 @@ const Navbar = () => {
                     <div className="flex gap-2 relative cursor-pointer group">
                         <p>Catalog</p>
                         <FaAngleDown className="flex items-center" />
-                        <div className="rotate-45 bg-white absolute h-[30px] w-[30px] rounded-sm translate-x-15 translate-y-7 transition-all duration-100 invisible opacity-0 group-hover:visible group-hover:opacity-100">
+                        <div className="rotate-45 bg-white absolute h-[25px] w-[25px] rounded-sm translate-x-15 translate-y-7 transition-all duration-100 invisible opacity-0 group-hover:visible group-hover:opacity-100">
                             {" "}
                         </div>
                         <div className="absolute w-[300px] bg-white p-2 flex flex-col transition-all duration-300 translate-y-10 translate-x-[-20px] rounded-lg invisible opacity-0 group-hover:visible group-hover:opacity-100">
@@ -109,8 +109,8 @@ const Navbar = () => {
                         <button className="bg-richblack-800 py-2 px-3 rounded-xl">Signup</button>
                     </Link>
                 )}
-                {/* {token !== null && <ProfileDropDown />} */}
-                <ProfileDropDown />
+                {token !== null && <ProfileDropDown />}
+                {/* <ProfileDropDown /> */}
             </div>
         </div>
     );

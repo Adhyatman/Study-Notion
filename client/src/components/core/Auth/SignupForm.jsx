@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+
+import { sendOtp } from "../../../services/operations/authAPI";
+import { setSignupData } from "../../../slices/authSlice";
+import { toast } from "react-hot-toast";
 
 const SignUpForm = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [showCreatePassword, setShowCreatePassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [accountType, setAccountType] = useState("Student");
     const [formData, setFormData] = useState({
-        mode: "student",
         firstName: "",
         lastName: "",
         email: "",
-        createPassword: "",
+        password: "",
         confirmPassword: "",
     });
     function changeHandler(event) {
@@ -23,31 +29,46 @@ const SignUpForm = () => {
     function submitHandler(event) {
         event.preventDefault();
         console.log(formData);
-        navigate("/Login");
+        console.log(accountType);
+        if (formData.password !== formData.confirmPassword) {
+            toast.error("Passwords Do Not Match");
+            return;
+        }
+        const signupData = {
+            ...formData,
+            accountType,
+        };
+
+        // Setting signup data to state
+        // To be used after otp verification
+        dispatch(setSignupData(signupData));
+        // Send OTP to user for verification
+        dispatch(sendOtp(formData.email, navigate));
+
+        //reset
+        setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+        });
+        setAccountType("Student");
     }
     return (
+        // <div></div>
         <form onSubmit={submitHandler} className=" w-full mb-7">
             <div className="bg-richblack-700 rounded-2xl w-fit flex flex-row justify-between p-1 mb-7">
                 <button
-                    className={`py-2 px-6  rounded-2xl ${formData.mode === "student" ? "bg-richblack-900" : "bg-richblack-700"}`}
-                    onClick={() =>
-                        setFormData((prevData) => ({
-                            ...prevData,
-                            mode: "student",
-                        }))
-                    }
+                    className={`py-2 px-6  rounded-2xl ${accountType === "Student" ? "bg-richblack-900" : "bg-richblack-700"}`}
+                    onClick={() => setAccountType("Student")}
                     type="button"
                 >
                     Student
                 </button>
                 <button
-                    className={`py-2 px-6  rounded-2xl ${formData.mode === "instructor" ? "bg-richblack-900" : "bg-richblack-700"}`}
-                    onClick={() =>
-                        setFormData((prevData) => ({
-                            ...prevData,
-                            mode: "instructor",
-                        }))
-                    }
+                    className={`py-2 px-6  rounded-2xl ${accountType === "Instructor" ? "bg-richblack-900" : "bg-richblack-700"}`}
+                    onClick={() => setAccountType("Instructor")}
                     type="button"
                 >
                     Instructor
@@ -115,9 +136,9 @@ const SignUpForm = () => {
                         <input
                             required
                             type={showCreatePassword ? "text" : "password"}
-                            name="createPassword"
-                            value={formData.createPassword}
-                            id="createPassword"
+                            name="password"
+                            value={formData.password}
+                            id="password"
                             placeholder="Enter Password"
                             onChange={changeHandler}
                             className="bg-richblack-500 p-3 rounded-[7px] shadow-[0_1px_0_0_#ffffff] w-full"

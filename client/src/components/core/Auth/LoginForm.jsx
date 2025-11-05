@@ -2,14 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { login } from "../../../services/operations/authAPI";
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
+    const { email, password } = formData;
     function changeHandler(event) {
         setFormData((prevData) => ({
             ...prevData,
@@ -19,7 +24,7 @@ const LoginForm = () => {
     function submitHandler(event) {
         event.preventDefault();
         console.log(formData);
-        navigate("/Dashboard");
+        dispatch(login(email, password, navigate));
     }
     return (
         <form onSubmit={submitHandler} className=" w-[70%] mb-7">

@@ -1,9 +1,9 @@
 import React from "react";
 import frame from "../../../assets/Images/frame.png";
-import SignUpForm from "../SignupAndLogin/SignupForm";
-import LoginForm from "../SignupAndLogin/LoginForm";
+import SignUpForm from "./SignupForm";
+import LoginForm from "./LoginForm";
 const Template = (props) => {
-    const desc1 = "Build skills for today, tomorrow, and beyond.";
+    const desc1 = "Build skills for today, tomorrows, and beyond.";
     const desc2 = "Education to future-proof your career.";
     return (
         <div className="text-white flex flex-row justify-between items-center mt-16  w-full">
